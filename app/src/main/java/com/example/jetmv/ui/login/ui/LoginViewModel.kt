@@ -21,6 +21,8 @@ class LoginViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading : MutableLiveData<Boolean> = _isLoading
 
+    private val _loginSuccessful = MutableLiveData<Boolean>()
+    val loginSuccessful: MutableLiveData<Boolean> = _loginSuccessful
     fun onLoginChanged(email:String, password: String){
         _email.value = email
         _password.value = password
@@ -43,6 +45,7 @@ class LoginViewModel: ViewModel() {
         isLoading.value = true
         delay(4000)
         isLoading.value = false
+        loginSuccessful.value = true
     }
 
 }
