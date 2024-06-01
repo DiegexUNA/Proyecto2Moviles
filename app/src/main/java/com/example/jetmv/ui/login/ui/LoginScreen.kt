@@ -43,7 +43,7 @@ fun LoginScreen(viewModel: LoginViewModel){
 fun Login(modifier: Modifier, viewModel: LoginViewModel) {
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
-    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
+    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = true)
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
     val corutineScope = rememberCoroutineScope()
     if(isLoading){
