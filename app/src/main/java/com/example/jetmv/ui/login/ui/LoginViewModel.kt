@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
 
 class LoginViewModel: ViewModel() {
@@ -50,6 +51,12 @@ class LoginViewModel: ViewModel() {
         _password.value = ""
     }
 
+    fun onForgotPassword() {
+        // Handle forgot password logic here
+    }
+
+    fun onRegister() {
+
+    }
+
 }
-
-
