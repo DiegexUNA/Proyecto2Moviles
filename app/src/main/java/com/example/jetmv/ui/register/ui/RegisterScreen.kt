@@ -21,6 +21,7 @@ fun RegisterScreen(viewModel: RegisterVM = viewModel()) {
     val username: String by viewModel.username.observeAsState("")
     val password: String by viewModel.password.observeAsState("")
     val isSubmitted: Boolean by viewModel.isSubmitted.observeAsState(false)
+    val registrationResult: RegisterVM.RegistrationResult? by viewModel.registrationResult.observeAsState()
 
     Column(
         modifier = Modifier
@@ -38,8 +39,22 @@ fun RegisterScreen(viewModel: RegisterVM = viewModel()) {
         Spacer(modifier = Modifier.height(16.dp))
         SubmitButton(enabled = true, onClick = viewModel::submit, text = "Submit")
         Spacer(modifier = Modifier.height(16.dp))
-        if (isSubmitted) {
-            Text("Registration submitted successfully!")
+        when (registrationResult) {
+            RegisterVM.RegistrationResult.SUCCESS -> {
+                Text("Registration submitted successfully!")
+            }
+            RegisterVM.RegistrationResult.EMAIL_EXISTS -> {
+                Text("Email already exists!")
+            }
+            RegisterVM.RegistrationResult.USERNAME_EXISTS -> {
+                Text("Username already exists!")
+            }
+            RegisterVM.RegistrationResult.FAILURE -> {
+                Text("Registration failed. Please try again.")
+            }
+            null -> {
+                // No action needed
+            }
         }
     }
 }

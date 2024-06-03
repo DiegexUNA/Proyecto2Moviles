@@ -1,62 +1,61 @@
 package com.example.jetmv.ui.login.ui
-
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
-import androidx.compose.ui.tooling.preview.Preview
-import kotlinx.coroutines.delay
+import com.google.firebase.auth.FirebaseAuth
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel : ViewModel() {
+    private val auth = FirebaseAuth.getInstance()
+
     private val _email = MutableLiveData<String>()
-    val email : LiveData<String> = _email
+    val email: LiveData<String> = _email
 
     private val _password = MutableLiveData<String>()
-    val password : LiveData<String> = _password
+    val password: LiveData<String> = _password
 
     private val _loginEnable = MutableLiveData<Boolean>()
-    val loginEnable : LiveData<Boolean> = _loginEnable
+    val loginEnable: LiveData<Boolean> = _loginEnable
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading : MutableLiveData<Boolean> = _isLoading
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _loginSuccessful = MutableLiveData<Boolean>()
-    val loginSuccessful: MutableLiveData<Boolean> = _loginSuccessful
-    fun onLoginChanged(email:String, password: String){
+    val loginSuccessful: LiveData<Boolean> = _loginSuccessful
+
+    fun onLoginChanged(email: String, password: String) {
         _email.value = email
         _password.value = password
         _loginEnable.value = isValidEmail(email) && isValidPassword(password)
     }
 
-    private fun isValidEmail(email: String):Boolean{
+    private fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun isValidPassword(password: String):Boolean{
-        //aqui van las validaciones con Regex
-        // se verifican normalmente largo
-        //combinacion de mayusculas, minuscuals , numeros
-        //caracteres especiales y el largo que ya tenemos
+    private fun isValidPassword(password: String): Boolean {
+        // Implement password validation logic here
         return password.length > 6
     }
 
-    suspend fun  onLoginSelected(){
-        isLoading.value = true
-        delay(1000)
-        isLoading.value = false
-        loginSuccessful.value = true
-        _email.value = ""
-        _password.value = ""
+    fun onLoginSelected() {
+        val email = _email.value ?: return
+        val password = _password.value ?: return
+
+        setLoading(true)
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                setLoading(false)
+                if (task.isSuccessful) {
+                    // Login successful
+                    _loginSuccessful.postValue(true)
+                } else {
+                    // Login failed
+                    _loginSuccessful.postValue(false)
+                }
+            }
     }
-
-    fun onForgotPassword() {
-        // Handle forgot password logic here
+    fun setLoading(isLoading: Boolean) {
+        _isLoading.postValue(isLoading)
     }
-
-    fun onRegister() {
-
-    }
-
 }

@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.*
 
 import androidx.lifecycle.LiveData
+import com.example.jetmv.ui.components.SubmitButton
 
 @Composable
-fun PantallaPRs(viewModel: PRsViewModel = remember { PRsViewModel() }) {
+fun PantallaPRs(viewModel: PRsVM = remember { PRsVM() }) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,6 +51,12 @@ fun PantallaPRs(viewModel: PRsViewModel = remember { PRsViewModel() }) {
         PRItem("Deadlift", viewModel.deadliftPR) { pr ->
             viewModel.setDeadliftPR(pr)
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        // Success or failure message
+        val message = viewModel.message.observeAsState("")
+        Text(text = message.value)
+        // Button to trigger PR submission
+        SubmitButton(enabled = true, onClick = { viewModel.savePR() }, text = "Submit PRs")
     }
 }
 
