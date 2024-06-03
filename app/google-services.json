@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "229903084515",
+    "project_id": "gymdesunidos",
+    "storage_bucket": "gymdesunidos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229903084515:android:c8f2f657e96851b7388ed6",
+        "android_client_info": {
+          "package_name": "com.example.jetmv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbZoK1OwdrZXTyX8K-9iVR91U6X1ueCVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

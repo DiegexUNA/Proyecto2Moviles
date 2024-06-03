@@ -13,6 +13,8 @@ import com.example.jetmv.ui.login.ui.LoginScreen
 import com.example.jetmv.ui.login.ui.LoginViewModel
 import com.example.jetmv.ui.principal.ui.PantallaPrincipalVM
 import com.example.jetmv.ui.principal.ui.PantallaPrincipal
+import com.example.jetmv.ui.register.ui.RegisterScreen
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +35,16 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    LoginScreen(loginViewModel)
+                    LoginScreen(navController,loginViewModel)
                 }
                 composable("main") {
                     PantallaPrincipal(navController, mainViewModel)
                 }
                 composable("prs") {
                     PantallaPRs()
+                }
+                composable("register") {
+                    RegisterScreen()
                 }
                 composable("calculadora") {
                     PantallaCalculadora()
