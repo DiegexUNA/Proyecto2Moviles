@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     PantallaEntrenamientos()
                 }
                 composable("login2") {
-                    LoginScreen(loginViewModel)
+                    LoginScreen(navController,loginViewModel)
                 }
             }
         }
