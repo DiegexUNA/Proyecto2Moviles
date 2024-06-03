@@ -1,5 +1,6 @@
 package com.example.jetmv.ui.Entrenamientos.ui
 
+import EntrenamientosVM
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -13,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import java.time.LocalDate
 import java.util.*
 import android.content.Context
+import androidx.compose.ui.text.style.TextAlign
 
 fun ShowDatePickerDialog(context: Context, onDateSelected: (LocalDate) -> Unit) {
     val calendar = Calendar.getInstance()
@@ -20,7 +22,7 @@ fun ShowDatePickerDialog(context: Context, onDateSelected: (LocalDate) -> Unit) 
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-    DatePickerDialog(
+    val datePickerDialog = DatePickerDialog(
         context,
         { _, selectedYear, selectedMonth, selectedDay ->
             onDateSelected(LocalDate.of(selectedYear, selectedMonth + 1, selectedDay))
@@ -28,7 +30,9 @@ fun ShowDatePickerDialog(context: Context, onDateSelected: (LocalDate) -> Unit) 
         year,
         month,
         day
-    ).show()
+    )
+    datePickerDialog.datePicker.minDate = calendar.timeInMillis
+    datePickerDialog.show()
 }
 
 @Composable
@@ -37,9 +41,10 @@ fun PantallaEntrenamientos(viewModel: EntrenamientosVM = viewModel()) {
     val ejercicios by viewModel.ejercicios.collectAsState()
     val context = LocalContext.current
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -49,18 +54,22 @@ fun PantallaEntrenamientos(viewModel: EntrenamientosVM = viewModel()) {
                     viewModel.obtenerEjerciciosPorFecha(selectedDate)
                 }
             }) {
-                Text(text = "Seleccionar Fecha")
+                Text(text = "Seleccionar Fecha", textAlign = TextAlign.Center)
             }
 
             fechaSeleccionada?.let {
-                Text(text = "Fecha seleccionada: $it")
+                Text(text = "Fecha seleccionada: $it", textAlign = TextAlign.Center)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            ejercicios.forEach { ejercicio ->
-                Text(text = "${ejercicio.nombre}: ${ejercicio.descripcion}")
-                Spacer(modifier = Modifier.height(8.dp))
+            ejercicios.groupBy { it.hora }.forEach { (hora, ejerciciosPorHora) ->
+                Text(
+                    text = "${hora}: ${ejerciciosPorHora.joinToString { ejercicio -> ejercicio.nombre }}",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
     }

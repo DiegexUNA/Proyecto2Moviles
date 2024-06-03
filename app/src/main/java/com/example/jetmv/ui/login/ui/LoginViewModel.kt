@@ -43,9 +43,11 @@ class LoginViewModel: ViewModel() {
 
     suspend fun  onLoginSelected(){
         isLoading.value = true
-        delay(4000)
+        delay(1000)
         isLoading.value = false
         loginSuccessful.value = true
+        _email.value = ""
+        _password.value = ""
     }
 
 }

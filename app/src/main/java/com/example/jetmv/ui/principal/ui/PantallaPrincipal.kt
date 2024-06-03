@@ -29,6 +29,10 @@ fun PantallaPrincipal(navController: NavController, viewModel: PantallaPrincipal
             Button(onClick = { navController.navigate("entrenamientos") }) {
                 Text(text = "Entrenamientos")
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = { navController.navigate("login2") }) {
+                Text(text = "Volver al Login")
+            }
         }
     }
 }

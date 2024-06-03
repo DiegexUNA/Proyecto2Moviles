@@ -47,6 +47,9 @@ class MainActivity : ComponentActivity() {
                 composable("entrenamientos") {
                     PantallaEntrenamientos()
                 }
+                composable("login2") {
+                    LoginScreen(loginViewModel)
+                }
             }
         }
     }
