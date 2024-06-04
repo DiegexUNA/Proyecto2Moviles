@@ -1,6 +1,5 @@
 package com.example.jetmv.ui.Calculadora.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,11 +22,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.foundation.background
+import androidx.compose.material3.*
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 
 
 @Composable
@@ -37,6 +39,7 @@ fun PantallaCalculadora() {
     val calculatedWeights by viewModel.calculatedWeights.observeAsState(emptyMap())
     var inputError by remember { mutableStateOf(false) }
     var showWeights by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -44,62 +47,74 @@ fun PantallaCalculadora() {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFE3F2FD), // Color superior
-                        Color(0xFF572364 )  // Color inferior
+                        Color(0xFF00FF00)  // Color inferior
                     )
                 )
             )
             .padding(16.dp),
-    )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Pantalla Calculadora de Pesos")
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = inputWeight,
-            onValueChange = { viewModel.onInputWeightChanged(it) },
-            label = { Text("Ingrese el peso total en lbs") },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done
-            ),
-            modifier = Modifier.fillMaxWidth()
-        )
-        if (inputError) {
-            Text(
-                text = "El peso debe ser igual o mayor a 45 lbs y no puede estar vacío",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.padding(top = 4.dp),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {
-                inputError = (inputWeight.toDoubleOrNull() ?: 0.0) < 45.0 || inputWeight.isEmpty()
-                showWeights = if (!inputError) {
-                    viewModel.calculateWeights()
-                    true
-                } else {
-                    false
-                }
-            },
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Calcular")
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        if (showWeights) {
-            Text("Barra: 45 lbs")
-            calculatedWeights.forEach { (weight, count) ->
-                Text("Discos de $weight lbs: $count")
+            Text(text = "Pantalla Calculadora de Pesos")
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = inputWeight,
+                onValueChange = { viewModel.onInputWeightChanged(it) },
+                label = { Text("Ingrese el peso total en lbs") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            if (inputError) {
+                Text(
+                    text = "El peso debe ser igual o mayor a 45 lbs y no puede estar vacío",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(top = 4.dp),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
-            val maxWeight = calculatedWeights.keys.sumOf { it * calculatedWeights[it]!! } + 45
-            Text("Peso máximo posible: $maxWeight lbs")
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    inputError = (inputWeight.toDoubleOrNull() ?: 0.0) < 45.0 || inputWeight.isEmpty()
+                    showWeights = if (!inputError) {
+                        viewModel.calculateWeights()
+                        true
+                    } else {
+                        false
+                    }
+                },colors = ButtonDefaults.buttonColors(Color(0xFF52A64E), contentColor = Color.Black),
+            ) {
+                Text("Calcular")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            if (showWeights) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text("Resultados:")
+                        Text("Barra: 45 lbs")
+                        calculatedWeights.forEach { (weight, count) ->
+                            Text("Discos de $weight lbs: $count")
+                        }
+                        val maxWeight = calculatedWeights.keys.sumOf { it * calculatedWeights[it]!! } + 45
+                        Text("Peso máximo posible: $maxWeight lbs")
+                    }
+                }
+            }
         }
     }
 }

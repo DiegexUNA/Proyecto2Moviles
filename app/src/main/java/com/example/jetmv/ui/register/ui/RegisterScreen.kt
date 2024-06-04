@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -42,7 +43,7 @@ fun RegisterScreen(viewModel: RegisterVM = viewModel()) {
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(16.dp))
-        SubmitButton(enabled = true, onClick = viewModel::submit, text = "Submit")
+        SubmitButton(enabled = true, onClick = viewModel::submit, text = "Submit" , buttonColor = Color(0xFF52A64E), )
         Spacer(modifier = Modifier.height(16.dp))
         when (registrationResult) {
             RegisterVM.RegistrationResult.SUCCESS -> {

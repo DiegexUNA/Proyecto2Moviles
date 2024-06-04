@@ -3,6 +3,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +28,7 @@ fun PantallaPrincipal(navController: NavController, viewModel: PantallaPrincipal
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFE3F2FD), // Color superior
-                        Color(0xFF572364 )  // Color inferior
+                        Color(0xFF00FF00 )  // Color inferior
                     )
                 )
             )
@@ -44,15 +45,15 @@ fun PantallaPrincipal(navController: NavController, viewModel: PantallaPrincipal
                 )
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { navController.navigate("prs") }) {
+            Button(onClick = { navController.navigate("prs") }, colors = ButtonDefaults.buttonColors(Color(0xFF52A64E), contentColor = Color.Black) ) {
                 Text(text = "Personal Records PRs")
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { navController.navigate("calculadora") }) {
+            Button(onClick = { navController.navigate("calculadora") },colors = ButtonDefaults.buttonColors(Color(0xFF52A64E), contentColor = Color.Black)) {
                 Text(text = "Calculadora de Pesos")
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { navController.navigate("entrenamientos") }) {
+            Button(onClick = { navController.navigate("entrenamientos")  }, colors = ButtonDefaults.buttonColors(Color(0xFF52A64E), contentColor = Color.Black)) {
                 Text(text = "Entrenamientos")
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -61,7 +62,7 @@ fun PantallaPrincipal(navController: NavController, viewModel: PantallaPrincipal
                 navController.navigate("login") {
                     popUpTo("main") { inclusive = true }
                 }
-            }) {
+            },colors = ButtonDefaults.buttonColors(Color(0xFF52A64E), contentColor = Color.Black)) {
                 Text("Logout")
             }
         }

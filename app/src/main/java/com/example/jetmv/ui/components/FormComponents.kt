@@ -8,6 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -63,20 +64,22 @@ fun PasswordField(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
         ),
+        visualTransformation = PasswordVisualTransformation(),
         modifier = Modifier.fillMaxWidth()
     )
 }
 
 @Composable
-fun SubmitButton(enabled: Boolean, onClick: () -> Unit, text: String = "Submit") {
+fun SubmitButton(enabled: Boolean, onClick: () -> Unit, text: String = "Submit", buttonColor: Color) {
     Button(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp),
-        enabled = enabled
+        enabled = enabled,
+        colors = ButtonDefaults.buttonColors(buttonColor)
     ) {
-        Text(text = text)
+        Text(text = text,  color = Color.Black)
     }
 }
 

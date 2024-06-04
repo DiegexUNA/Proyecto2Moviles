@@ -38,7 +38,7 @@ fun PantallaPRs(viewModel: PRsVM = remember { PRsVM() }) {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFE3F2FD), // Color superior
-                        Color(0xFF572364 )  // Color inferior
+                        Color(0xFF00FF00 )  // Color inferior
                     )
                 )
             )
@@ -76,7 +76,7 @@ fun PantallaPRs(viewModel: PRsVM = remember { PRsVM() }) {
         val message = viewModel.message.observeAsState("")
         Text(text = message.value)
         // Button to trigger PR submission
-        SubmitButton(enabled = true, onClick = { viewModel.savePR() }, text = "Submit PRs")
+        SubmitButton(enabled = true, onClick = { viewModel.savePR() }, text = "Submit PRs", buttonColor = Color(0xFF52A64E))
     }
 }
 

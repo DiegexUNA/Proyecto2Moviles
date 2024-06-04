@@ -16,17 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation // Importación necesaria
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.jetmv.R
 import com.example.jetmv.ui.components.EmailField
 import com.example.jetmv.ui.components.LinkButton
-import com.example.jetmv.ui.components.HeaderImage
 import com.example.jetmv.ui.components.SubmitButton
 import com.example.jetmv.ui.components.PasswordField
 import kotlinx.coroutines.launch
@@ -68,14 +64,14 @@ fun Login(navController: NavController, modifier: Modifier, viewModel: LoginView
             PasswordField(
                 value = password,
                 onValueChange = { viewModel.onLoginChanged(email, it) },
-                visualTransformation = PasswordVisualTransformation() // Uso de PasswordVisualTransformation
+                visualTransformation = PasswordVisualTransformation()
             )
             Spacer(modifier = Modifier.padding(8.dp))
             SubmitButton(enabled = loginEnable, onClick = {
                 coroutineScope.launch {
                     viewModel.onLoginSelected()
                 }
-            }, text = "Iniciar Sesión")
+            }, text = "Iniciar Sesión", buttonColor = Color(0xFF52A64E))
             Spacer(modifier = Modifier.padding(15.dp))
             LinkButton(
                 Modifier.align(Alignment.End),
