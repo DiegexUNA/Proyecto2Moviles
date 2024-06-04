@@ -18,6 +18,7 @@ import com.example.jetmv.ui.register.ui.RegisterScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             val navController = rememberNavController()
             val loginViewModel = remember { LoginViewModel() }
@@ -35,10 +36,10 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    LoginScreen(navController,loginViewModel)
+                    LoginScreen(navController, loginViewModel)
                 }
                 composable("main") {
-                    PantallaPrincipal(navController, mainViewModel)
+                    PantallaPrincipal(navController, mainViewModel, loginViewModel)
                 }
                 composable("prs") {
                     PantallaPRs()
@@ -53,10 +54,11 @@ class MainActivity : ComponentActivity() {
                     PantallaEntrenamientos()
                 }
                 composable("login2") {
-                    LoginScreen(navController,loginViewModel)
+                    LoginScreen(navController, loginViewModel)
                 }
             }
         }
     }
 }
+
 

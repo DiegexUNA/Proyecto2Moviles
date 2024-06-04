@@ -1,5 +1,6 @@
 package com.example.jetmv.ui.Calculadora.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +25,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 
 
@@ -34,7 +37,19 @@ fun PantallaCalculadora() {
     val calculatedWeights by viewModel.calculatedWeights.observeAsState(emptyMap())
     var inputError by remember { mutableStateOf(false) }
     var showWeights by remember { mutableStateOf(false) }
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFE3F2FD), // Color superior
+                        Color(0xFF572364 )  // Color inferior
+                    )
+                )
+            )
+            .padding(16.dp),
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()

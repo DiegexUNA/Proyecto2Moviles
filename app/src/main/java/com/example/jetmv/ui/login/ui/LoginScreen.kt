@@ -1,5 +1,6 @@
 package com.example.jetmv.ui.login.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation // Importación necesaria
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,7 @@ import com.example.jetmv.ui.components.HeaderImage
 import com.example.jetmv.ui.components.SubmitButton
 import com.example.jetmv.ui.components.PasswordField
 import kotlinx.coroutines.launch
+
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
     Box(
@@ -38,6 +41,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
         Login(navController, Modifier.align(Alignment.TopCenter), viewModel)
     }
 }
+
 @Composable
 fun Login(navController: NavController, modifier: Modifier, viewModel: LoginViewModel) {
     val email by viewModel.email.observeAsState("")
@@ -57,23 +61,22 @@ fun Login(navController: NavController, modifier: Modifier, viewModel: LoginView
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.padding(25.dp))
-            HeaderImage(Modifier, painterResource(id = R.drawable.login1))
+            Image(painter = painterResource(id = R.drawable.gymdesunidos), contentDescription = "GYMDESUNIDOS")
             Spacer(modifier = Modifier.padding(25.dp))
             EmailField(value = email, onValueChange = { viewModel.onLoginChanged(it, password) })
             Spacer(modifier = Modifier.padding(5.dp))
-            PasswordField(value = password, onValueChange = { viewModel.onLoginChanged(email, it) })
+            PasswordField(
+                value = password,
+                onValueChange = { viewModel.onLoginChanged(email, it) },
+                visualTransformation = PasswordVisualTransformation() // Uso de PasswordVisualTransformation
+            )
             Spacer(modifier = Modifier.padding(8.dp))
             SubmitButton(enabled = loginEnable, onClick = {
                 coroutineScope.launch {
                     viewModel.onLoginSelected()
                 }
             }, text = "Iniciar Sesión")
-            LinkButton(
-                Modifier.align(Alignment.End),
-                "Olvide mi contraseña",
-                Color.Red,
-                onClick = { navController.navigate("prs") })
-            Spacer(modifier = Modifier.padding(5.dp))
+            Spacer(modifier = Modifier.padding(15.dp))
             LinkButton(
                 Modifier.align(Alignment.End),
                 "No tengo una cuenta",

@@ -14,6 +14,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import java.time.LocalDate
 import java.util.*
 import android.content.Context
+import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 
 fun ShowDatePickerDialog(context: Context, onDateSelected: (LocalDate) -> Unit) {
@@ -44,6 +47,14 @@ fun PantallaEntrenamientos(viewModel: EntrenamientosVM = viewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFE3F2FD), // Color superior
+                        Color(0xFF572364 )  // Color inferior
+                    )
+                )
+            )
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {

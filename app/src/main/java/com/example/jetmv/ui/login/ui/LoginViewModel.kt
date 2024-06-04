@@ -58,4 +58,8 @@ class LoginViewModel : ViewModel() {
     fun setLoading(isLoading: Boolean) {
         _isLoading.postValue(isLoading)
     }
+    fun logout() {
+        auth.signOut()
+        _loginSuccessful.postValue(false)
+    }
 }

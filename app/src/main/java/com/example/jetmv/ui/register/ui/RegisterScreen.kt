@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetmv.ui.components.EmailField
@@ -35,7 +36,11 @@ fun RegisterScreen(viewModel: RegisterVM = viewModel()) {
         Spacer(modifier = Modifier.height(8.dp))
         UsernameField(value = username, onValueChange = viewModel::onUsernameChanged)
         Spacer(modifier = Modifier.height(8.dp))
-        PasswordField(value = password, onValueChange = viewModel::onPasswordChanged)
+        PasswordField(
+            value = password,
+            onValueChange = viewModel::onPasswordChanged,
+            visualTransformation = PasswordVisualTransformation()
+        )
         Spacer(modifier = Modifier.height(16.dp))
         SubmitButton(enabled = true, onClick = viewModel::submit, text = "Submit")
         Spacer(modifier = Modifier.height(16.dp))
